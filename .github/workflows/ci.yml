@@ -16,5 +16,5 @@ jobs:
     - name: Build Docker Image
       run: docker build -t ai-calculator .
 
-    - name: Run Test in Docker
-      run: docker run ai-calculator
+    - name: Run Pytest inside Docker
+      run: docker run ai-calculator python3 -m pytest
