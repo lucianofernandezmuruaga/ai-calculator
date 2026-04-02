@@ -1,7 +1,14 @@
-from src.calculator import add_numbers
+from src.calculator import ai_agent_tool
 
-def test_add_positive_numbers():
-    assert add_numbers(10, 5) == 15
+def test_ai_agent_extraction():
+    # Si el usuario manda 10 y 20
+    result = ai_agent_tool("Por favor suma 10 y 20")
+    assert result["status"] == "success"
+    assert result["numbers_extracted"] == [10, 20]
+    assert "30" in result["answer"]
 
-def test_add_negative_numbers():
-    assert add_numbers(-1, -1) == -2
+def test_ai_agent_error_handling():
+    # Si el usuario no manda números
+    result = ai_agent_tool("Hola, no te voy a dar números")
+    assert result["status"] == "error"
+    assert "No pude identificar" in result["message"]
