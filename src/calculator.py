@@ -1,4 +1,5 @@
 import re
+import sys
 
 def add_numbers(a, b):
     """Esta es la función técnica que ejecuta la acción."""
@@ -28,8 +29,22 @@ def ai_agent_tool(user_message):
     }
 
 if __name__ == "__main__":
-    # Caso de éxito
-    print(ai_agent_tool("Hola! Por favor sumá 120 y 80"))
-    print("-" * 30)
-    # Caso de error
-    print(ai_agent_tool("Hola, quiero sumar pero no te digo qué números"))
+    if "--chat" in sys.argv:
+        # Modo chat
+        print("--- Agente Calculadora Activo (Modo Chat) ---")
+        print("Escribí tu pedido (o 'salir' para terminar):")
+        while True:
+            user_text = input("> ")
+            if user_text.lower() in ["salir", "exit", "quit"]:
+                break
+
+            response = ai_agent_tool(user_text)
+            
+            if response["status"] == "success":
+                print(response["answer"])
+            else:
+                print(f"⚠️ {response['message']}")
+
+    else:
+        # Modo por defecto
+        print(ai_agent_tool("Hola! Por favor sumá 120 y 80")["answer"])
