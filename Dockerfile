@@ -8,11 +8,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamos nuestro script al contenedor
-#COPY calculator.py .
-
 # Copiamos todo el contenido de nuestra carpeta local a /app
 COPY . .
 
 # Ejecutamos el script cuando el contenedor arranque
-CMD ["python", "src/calculator.py"]
+CMD ["python", "main.py"]

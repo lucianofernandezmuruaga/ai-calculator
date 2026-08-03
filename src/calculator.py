@@ -30,7 +30,7 @@ def ai_agent_tool(user_message):
 
 if __name__ == "__main__":
     if "--chat" in sys.argv:
-        # Modo chat
+        # Modo chat interactivo continuo
         print("--- Agente Calculadora Activo (Modo Chat) ---")
         print("Escribí tu pedido (o 'salir' para terminar):")
         while True:
@@ -45,6 +45,16 @@ if __name__ == "__main__":
             else:
                 print(f"⚠️ {response['message']}")
 
+    elif len(sys.argv) > 1:
+        # Modo argumento directo: Toma lo que le mandamos desde main.py o consola
+        user_input = " ".join(sys.argv[1:])
+        response = ai_agent_tool(user_input)
+        
+        if response["status"] == "success":
+            print(f"\n{response['answer']}")
+        else:
+            print(f"\n⚠️ {response['message']}")
+
     else:
-        # Modo por defecto
+        # Modo por defecto (si se corre sin parámetros)
         print(ai_agent_tool("Hola! Por favor sumá 120 y 80")["answer"])
